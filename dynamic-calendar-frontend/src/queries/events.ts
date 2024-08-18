@@ -19,6 +19,35 @@ export const useEvents = createQuery({
   },
 });
 
+export const useDeleteEvent = createMutation({
+  mutationFn: async (id: string) => {
+    return await ky.delete(`${config.API_URL}/events/${id}`).json();
+  },
+});
+
+export const useUpdateEvent = createMutation({
+  mutationFn: async (event: EventModel & { id: string }) => {
+    return await ky
+      .put(`${config.API_URL}/events/${event.id}`, {
+        json: event,
+        hooks: {
+          beforeError: [
+            async (error) => {
+              const { response } = error;
+              if (response && response.body) {
+                error.name = "Error";
+                const message = (await response.json()) as { detail: string };
+                error.message = `${message.detail} (${response.status})`;
+              }
+              return error;
+            },
+          ],
+        },
+      })
+      .json();
+  },
+});
+
 export const useCreateEvent = createMutation({
   mutationFn: async (event: EventModel) => {
     return await ky
@@ -33,7 +62,6 @@ export const useCreateEvent = createMutation({
                 const message = (await response.json()) as { detail: string };
                 error.message = `${message.detail} (${response.status})`;
               }
-
               return error;
             },
           ],

@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, ConfigDict
 from pydantic.functional_validators import BeforeValidator
 
+from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import ReturnDocument
 
@@ -111,7 +112,7 @@ async def update_event(event_id: PyObjectId, event: UpdateEventModel = Body(...)
         k: v for k, v in event.model_dump(by_alias=True).items() if v is not None
     }
     update_result = await events.find_one_and_update(
-        {"_id": event_id},
+        {"_id": ObjectId(event_id)},
         {"$set": new_data},
         return_document=ReturnDocument.AFTER,
     )
@@ -126,7 +127,7 @@ async def update_event(event_id: PyObjectId, event: UpdateEventModel = Body(...)
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete_event(event_id: PyObjectId):
-    delete_result = await events.delete_one({"_id": event_id})
+    delete_result = await events.delete_one({"_id": ObjectId(event_id)})
     if delete_result.deleted_count:
         return
     raise HTTPException(status_code=404, detail=f"Event {event_id} not found")
