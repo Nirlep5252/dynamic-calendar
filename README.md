@@ -1,5 +1,9 @@
 # Dynamic Calendar
 
+## Preview
+
+https://github.com/user-attachments/assets/75588809-00ed-42ad-b717-cc2ba055b050
+
 ## Features
 
 1. Dynamic Calendar Views
