@@ -4,7 +4,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  // DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,9 +35,9 @@ export const CreateEvent: React.FC = () => {
           toggleOpen();
         }}
       >
-        <DialogTrigger asChild>
+        {/* <DialogTrigger asChild>
           <Button>Create Event</Button>
-        </DialogTrigger>
+        </DialogTrigger> */}
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create Event</DialogTitle>

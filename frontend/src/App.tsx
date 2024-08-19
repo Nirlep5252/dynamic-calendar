@@ -123,14 +123,14 @@ function App() {
 
   return (
     <div className="flex h-screen w-screen gap-10 p-10">
-      <div className="left-sidebar flex h-full w-[20%] flex-col items-center p-4">
+      <div className="left-sidebar flex h-full flex-col items-center p-4">
         <CreateEvent />
         <UpdateOrDeleteEvent
           event={selectedEvent}
           setEvent={setSelectedEvent}
         />
       </div>
-      <div className="h-full w-[80%]">
+      <div className="h-full w-full">
         <DnDCalendar
           localizer={localizer}
           events={events_data?.events}
